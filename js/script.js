@@ -5,45 +5,45 @@ $(document).ready(function() {
   const hiScoresButton = $("#hi-scores-button");
   let minutesField = $("#minutes-field");
   let secondsField  = $("#seconds-field");
-  let seconds = 0;
+  let seconds = 1;
   let minutes = 0;
 
   function startTime(){
 
-    seconds += 30;
-    console.log(seconds);
+    tmp = seconds + 1;
+    console.log(`Minute: ${minutes}, Seconds: ${seconds}`);
 
-    if(seconds < 9) {
-      secondsField.text(`0${seconds}`);
+    if(seconds > 9) {
+      secondsField.text(seconds + 1);
     }
 
     else {
-      secondsField.text(seconds);
+      secondsField.text(`0${seconds}`);
     }
 
-    if (seconds >= 60) {
-      minutes+=30;
-      seconds = 0;
-      if (minutes < 9) {
-        secondsField.text(`0${seconds}`);
-        minutesField.text(`0${minutes}`);
-      }
+    seconds++;
 
-      else {
+    if (tmp === 60) {
+
+      minutes++;
+      seconds = 0;
+
+      secondsField.text(`0${seconds}`);
+      minutesField.text(`0${minutes}`);
+
+      if (minutes > 9) {
         minutesField.text(minutes);
       }
 
+      console.log(`Minute: ${minutes}, Seconds: ${seconds}`);
+    }
 
-      if(minutes < 60) {
-        minutesField.text(`0${minutes}`);
-      }
+    if(minutes === 1) {
+      alert(`Time's up, please press the 'Restart' button or refresh the page.`);
     }
   }
 
   playButton.click(function(){
-    let timer = setInterval(startTime, 1000);
-    if(minutes > 60) {
-      alert(`You have reached an hour, please press the 'Restart' button or refresh the page.`);
-    }
+    let timer = setInterval(startTime, 100);
   });
 });
