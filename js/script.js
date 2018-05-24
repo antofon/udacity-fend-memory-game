@@ -18,6 +18,48 @@ $(document).ready(function() {
   let tmp = 0;
   let movesCount = 0;
   let starCount = 3;
+  let i = 0;
+
+
+  /*
+ * Create a list that holds all of your cards
+ */
+  let cardArray = ['fa-angular', 'fa-css3-alt', 'fa-vuejs', 'fa-react', 'fa-sass', 'fa-js-square', 'fa-angular', 'fa-html5', 'fa-node-js', 'fa-react', 'fa-css3-alt', 'fa-node-js', 'fa-vuejs', 'fa-html5', 'fa-js-square', 'fa-sass'];
+
+/*
+ * Display the cards on the page
+ *   - shuffle the list of cards using the provided "shuffle" method below
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
+ */
+
+// Shuffle function from http://stackoverflow.com/a/2450976
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+}
+
+
+
+/*
+ * set up the event listener for a card. If a card is clicked:
+ *  - display the card's symbol (put this functionality in another function that you call from this one)
+ *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  - if the list already has another card, check to see if the two cards match
+ *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+ *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ */
 
   function endGame() {
     alert("Time's up, please press the 'Restart' button or refresh the page");
@@ -90,6 +132,14 @@ $(document).ready(function() {
 
   playButton.click(function() {
     let timer = setInterval(startTime, 1000);
+    console.log(shuffle(cardArray));
+    // i++;
+    // for(let i = 1; i <= cardArray.length; i++){
+    //   if(i) {
+    //     $("#icon-"+ i).remove();
+    //     $(`.card:nth-child(${i})`).append(`<span class='fab ${cardArray[i]} fa-5x' id='icon-${i}'></span>`);
+    //   }
+    // }
   });
 
   cardStyle.on("click", countMoves);
