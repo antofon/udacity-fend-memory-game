@@ -18,7 +18,7 @@ $(document).ready(function() {
   let tmp = 0;
   let movesCount = 0;
   let starCount = 3;
-  let i = 0;
+  // let i = 0;
 
 
   /*
@@ -130,16 +130,20 @@ function shuffle(array) {
     }
   } // startTime()
 
+
   playButton.click(function() {
     let timer = setInterval(startTime, 1000);
-    console.log(shuffle(cardArray));
-    // i++;
-    // for(let i = 1; i <= cardArray.length; i++){
-    //   if(i) {
-    //     $("#icon-"+ i).remove();
-    //     $(`.card:nth-child(${i})`).append(`<span class='fab ${cardArray[i]} fa-5x' id='icon-${i}'></span>`);
-    //   }
-    // }
+    shuffle(cardArray);
+    $('.icon').remove();
+    //remove all icon elements in the beginning so they do not keep appending off of each other upon user's click
+    for(let i = 0; i < cardArray.length; i++) {
+      console.log(`Index: ${i}, Class: ${cardArray[i]}`);
+      $('.card-style:eq('+i+')').append(`<span class="fab fa-5x align-icon icon"></span>`);
+      $('.icon:eq('+i+')').addClass(cardArray
+      [i]);
+    }
+
+    console.log('\n');
   });
 
   cardStyle.on("click", countMoves);
