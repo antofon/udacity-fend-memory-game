@@ -162,7 +162,7 @@ function shuffle(array) {
     }
 
     switch (movesCount) {
-      case 10:
+      case 25:
         faStar1.removeClass('fas');
         faStar1.addClass('far');
         //remove and add the FontAwesome classes for a Star
@@ -170,7 +170,7 @@ function shuffle(array) {
         console.log(`Stars: ${starCount}`);
         break;
 
-      case 20:
+      case 35:
         faStar2.removeClass('fas');
         faStar2.addClass('far');
         starCount--;
