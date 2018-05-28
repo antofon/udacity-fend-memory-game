@@ -18,7 +18,8 @@ $(document).ready(function() {
   let tmp = 0;
   let movesCount = 0;
   let starCount = 3;
-  let matchArray = [];
+  let compareMatches = [];
+  let correctMatches = [];
   let score = 0;
   // let i = 0;
 
@@ -70,20 +71,38 @@ function shuffle(array) {
   } // endGame()
 
 
-
   function checkMatch(event) {
-    matchArray.push(event.target.classList[4]);
+    // go to the actual DOM element that was clicked to get the icon's class
+
+    // NOTE: Some cases to consider:
+    /*
+      1. User clicks on same card the score should not increase
+      2. If a user matches a pair, those cards should be put in separate arr
+    */
+
+    compareMatches.push(event.target.classList[4]);
     //store class name of elements in an array to be compared for match/no match
 
-    console.log(matchArray);
-    if(matchArray.length === 2) {
-      if(matchArray[0] === matchArray[1]) {
-        console.log(`Card: ${matchArray[0]}\nCard: ${matchArray[1]}.\nCards match.`);
-        matchArray.length = 0;
-        //delete contents instead of assigning reference to a new array (other references untouched) and causing potential memory leaks: https://www.jstips.co/en/javascript/two-ways-to-empty-an-array/
+    console.log(compareMatches);
+    if(compareMatches.length === 2) {
+      if(compareMatches[0] === compareMatches[1]) {
+        if($.inArray(compareMatches[0], correctMatches) !== -1 || $.inArray(compareMatches[1], correctMatches) !== -1) {
+          console.log("Card has already been used");
+          compareMatches.length = 0;
+        } // if the cards being compared are already a matched pair, empty array to check a new pair of cards
 
-        score++;
-        console.log(`Score: ${score}`);
+        else {
+          correctMatches.push(compareMatches[0], compareMatches[1]);
+
+          console.log(`Card: ${compareMatches[0]}\nCard: ${compareMatches[1]}.\nCards match.`);
+          console.log(`Correct matches: ${correctMatches}`);
+          compareMatches.length = 0;
+          //delete contents instead of assigning reference to a new array (other references untouched) and causing potential memory leaks: https://www.jstips.co/en/javascript/two-ways-to-empty-an-array/
+
+          score++;
+          console.log(`Score: ${score}`);
+        } // if not, push to correctMatches array and increment score by 1
+
 
         //The below if / else if statements are for formatting purposes when the user wins the game
         if (score === 8 && minutes < 9) {
@@ -109,8 +128,8 @@ function shuffle(array) {
 
       else {
         console.log(`Score: ${score}`);
-        console.log(`Card: ${matchArray[0]}\nCard: ${matchArray[1]}.\nCards do not match.`);
-        matchArray.length = 0;
+        console.log(`Card: ${compareMatches[0]}\nCard: ${compareMatches[1]}.\nCards do not match.`);
+        compareMatches.length = 0;
         //delete contents instead of assigning reference to a new array (other references untouched) and causing potential memory leaks: https://www.jstips.co/en/javascript/two-ways-to-empty-an-array/
       } // else statement for no match
     } // user selects two cards to be compared for a match
@@ -207,12 +226,4 @@ function shuffle(array) {
 
   cardStyle.click(checkMatch);
 
-  // go to the actual DOM element that was clicked to get the icon's class
-  // console.log(event.target.classList[4]);
-
-  // NOTE: Some cases to consider:
-  /*
-    1. User clicks on same card the score should not increase
-    2. If a user matches a pair, those cards should be put to the side
-  */
 });
