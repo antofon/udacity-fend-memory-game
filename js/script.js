@@ -21,6 +21,8 @@ $(document).ready(function() {
   // let i = 0;
 
 
+// NOTE: REMOVE CONSOLE.LOG STATEMENT USED FOR DEBUGGING PURPOSES AFTER PROJECT COMPLETION
+
   /*
  * Create a list that holds all of your cards
  */
@@ -64,6 +66,21 @@ function shuffle(array) {
   function endGame() {
     alert("Time's up, please press the 'Restart' button or refresh the page");
   } // endGame()
+
+
+  function displayCard(cardArray) {
+    shuffle(cardArray);
+    $('.icon').remove();
+    //remove all icon elements in the beginning so they do not keep appending off of each other upon user's click
+    for(let i = 0; i < cardArray.length; i++) {
+      console.log(`Index: ${i}, Class: ${cardArray[i]}`);
+      $('.card-style:eq('+i+')').append(`<span class="fab fa-5x align-icon icon" id="icon-${i}"></span>`);
+      $('.icon:eq('+i+')').addClass(cardArray
+      [i]);
+    }
+
+    console.log('\n');
+  }
 
   function countMoves() {
 
@@ -133,18 +150,19 @@ function shuffle(array) {
 
   playButton.click(function() {
     let timer = setInterval(startTime, 1000);
-    shuffle(cardArray);
-    $('.icon').remove();
-    //remove all icon elements in the beginning so they do not keep appending off of each other upon user's click
-    for(let i = 0; i < cardArray.length; i++) {
-      console.log(`Index: ${i}, Class: ${cardArray[i]}`);
-      $('.card-style:eq('+i+')').append(`<span class="fab fa-5x align-icon icon"></span>`);
-      $('.icon:eq('+i+')').addClass(cardArray
-      [i]);
-    }
 
-    console.log('\n');
+    displayCard(cardArray);
+
   });
 
   cardStyle.on("click", countMoves);
+
+$(".icon").click(function(event) {
+  // $('.selected').remove();
+  // $(".icon").append("<span class='selected'>Selected</span>");
+// $('.selected').remove();
+  // $(".icon").append("<span class='deselected'>Deselected</span>");
+  console.log($(".icon").index());
+});
+
 });
