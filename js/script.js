@@ -157,12 +157,15 @@ function shuffle(array) {
 
   cardStyle.on("click", countMoves);
 
-$(".icon").click(function(event) {
+  cardStyle.click(function(event) {
   // $('.selected').remove();
   // $(".icon").append("<span class='selected'>Selected</span>");
 // $('.selected').remove();
   // $(".icon").append("<span class='deselected'>Deselected</span>");
-  console.log($(".icon").index());
+
+  // go to the actual DOM element that was clicked to get the icon's class
+  console.log(event.target.classList[4]);
+
 });
 
 });
