@@ -19,6 +19,7 @@ $(document).ready(function() {
   let movesCount = 0;
   let starCount = 3;
   let matchArray = [];
+  let score = 0;
   // let i = 0;
 
 
@@ -160,19 +161,56 @@ function shuffle(array) {
 
   // go to the actual DOM element that was clicked to get the icon's class
   // console.log(event.target.classList[4]);
+
+  // NOTE: Some cases to consider:
+  /*
+    1. User clicks on same card the score should not increase
+    2. If a user matches a pair, those cards should be put to the side
+
+
+
+
+  */
   matchArray.push(event.target.classList[4]);
+  //store class name of elements in an array to be compared for match/no match
+
   console.log(matchArray);
   if(matchArray.length === 2) {
     if(matchArray[0] === matchArray[1]) {
       console.log(`Card: ${matchArray[0]}\nCard: ${matchArray[1]}.\nCards match.`);
       matchArray = [];
-    }
+
+      score++;
+      console.log(`Score: ${score}`);
+
+      //The below if / else if statements are for formatting purposes when the user wins the game
+      if (score === 8 && minutes < 9) {
+        if (seconds < 9) {
+          alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+        }
+
+        else {
+          alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:${seconds}.\nStar rating: ${starCount}`);
+        }
+      }
+
+      else if (score === 8 && seconds < 9) {
+        if (minutes < 9) {
+          alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+        }
+
+        else {
+          alert(`Congratulations, you've won the game!\nTime (minutes and seconds): ${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+        }
+      }
+    } // if statement for match
 
     else {
+      console.log(`Score: ${score}`);
       console.log(`Card: ${matchArray[0]}\nCard: ${matchArray[1]}.\nCards do not match.`);
       matchArray = [];
-    }
-  }
+    } // else statement for no match
+  } // user selects two cards to be compared for a match
 
 
   });
