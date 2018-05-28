@@ -18,6 +18,7 @@ $(document).ready(function() {
   let tmp = 0;
   let movesCount = 0;
   let starCount = 3;
+  let matchArray = [];
   // let i = 0;
 
 
@@ -150,22 +151,30 @@ function shuffle(array) {
 
   playButton.click(function() {
     let timer = setInterval(startTime, 1000);
-
     displayCard(cardArray);
-
   });
 
   cardStyle.on("click", countMoves);
 
   cardStyle.click(function(event) {
-  // $('.selected').remove();
-  // $(".icon").append("<span class='selected'>Selected</span>");
-// $('.selected').remove();
-  // $(".icon").append("<span class='deselected'>Deselected</span>");
 
   // go to the actual DOM element that was clicked to get the icon's class
-  console.log(event.target.classList[4]);
+  // console.log(event.target.classList[4]);
+  matchArray.push(event.target.classList[4]);
+  console.log(matchArray);
+  if(matchArray.length === 2) {
+    if(matchArray[0] === matchArray[1]) {
+      console.log(`Card: ${matchArray[0]}\nCard: ${matchArray[1]}.\nCards match.`);
+      matchArray = [];
+    }
 
-});
+    else {
+      console.log(`Card: ${matchArray[0]}\nCard: ${matchArray[1]}.\nCards do not match.`);
+      matchArray = [];
+    }
+  }
+
+
+  });
 
 });
