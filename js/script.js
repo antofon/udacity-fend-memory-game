@@ -70,19 +70,19 @@ function shuffle(array) {
     alert("Time's up, please press the 'Restart' button or refresh the page");
   } // endGame()
 
+  function flipAnimation() {
+    $('body').css({"background" : "purple", "transition": ".2s all ease-in-out"});
+
+  } // flipAnimation()
+
 
   function checkMatch(event) {
     // go to the actual DOM element that was clicked to get the icon's class
 
-    // NOTE: Some cases to consider:
-    /*
-      1. User clicks on same card the score should not increase
-      2. If a user matches a pair, those cards should be put in separate arr
-    */
-
     compareMatches.push(event.target.classList[4]);
     //store class name of elements in an array to be compared for match/no match
-
+    setTimeout(flipAnimation, 850);
+    //at 850 milliseconds, call the flipAnimation function
     console.log(compareMatches);
     if(compareMatches.length === 2) {
       if(compareMatches[0] === compareMatches[1]) {
