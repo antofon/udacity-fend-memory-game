@@ -12,6 +12,7 @@ $(document).ready(function() {
   const faStar1 = $(".fa-star").last();
   const faStar2 = $(".fa-star:eq(1)");
   const faStar3 = $(".fa-star").first();
+  const restartButton = $("#restart-button");
 
   let seconds = 1;
   let minutes = 0;
@@ -21,6 +22,7 @@ $(document).ready(function() {
   let compareMatches = [];
   let correctMatches = [];
   let score = 0;
+  let timer = 0;
   // let i = 0;
 
 
@@ -66,12 +68,49 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+ function restartGame() {
+   clearInterval(timer);
+   // re-initialize vars to initial state logically
+   minutes = 0;
+   seconds = 0;
+   movesCount = 0;
+
+   minutesField.text('00');
+   secondsField.text('00');
+   movesField.text('00');
+   // set initial state of HTML
+
+   displayCard(cardArray);
+   // call displayCard to reshuffle cards and add the HTML to the screen
+   
+   switch (starCount) {
+
+     case 1:
+       faStar1.removeClass('far');
+       faStar1.addClass('fas');
+       faStar2.removeClass('far');
+       faStar2.addClass('fas');
+       starCount = 3;
+       break;
+
+     case 2:
+       faStar1.removeClass('far');
+       faStar1.addClass('fas');
+       starCount = 3;
+       break;
+
+     default:
+       starCount = 3;
+       break;
+   } // modify classes back to full stars, set count to 3
+ } // restartGame()
+
   function endGame() {
     alert("Time's up, please press the 'Restart' button or refresh the page");
   } // endGame()
 
   function flipAnimation() {
-    $('body').css({"background" : "purple", "transition": ".2s all ease-in-out"});
+    // $('body').css({"background" : "purple", "transition": ".2s all ease-in-out"});
 
   } // flipAnimation()
 
@@ -218,7 +257,7 @@ function shuffle(array) {
 
 
   playButton.click(function() {
-    let timer = setInterval(startTime, 1000);
+    timer = setInterval(startTime, 1000);
     displayCard(cardArray);
   });
 
@@ -226,4 +265,5 @@ function shuffle(array) {
 
   cardStyle.click(checkMatch);
 
+  restartButton.click(restartGame);
 });
