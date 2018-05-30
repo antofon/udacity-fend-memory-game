@@ -71,9 +71,18 @@ function shuffle(array) {
  function restartGame() {
    clearInterval(timer);
    // re-initialize vars to initial state logically
+   seconds = 1;
    minutes = 0;
-   seconds = 0;
+   tmp = 0;
    movesCount = 0;
+   starCount = 3;
+   compareMatches.length = 0;
+   correctMatches.length = 0;
+   score = 0;
+   timer = 0;
+   // minutes = 0;
+   // seconds = 0;
+   // movesCount = 0;
 
    minutesField.text('00');
    secondsField.text('00');
@@ -82,7 +91,7 @@ function shuffle(array) {
 
    displayCard(cardArray);
    // call displayCard to reshuffle cards and add the HTML to the screen
-   
+
    switch (starCount) {
 
      case 1:
@@ -115,6 +124,40 @@ function shuffle(array) {
   } // flipAnimation()
 
 
+function completeGame() {
+  //The below if / else if statements are for formatting purposes when the user wins the game
+  if (score === 8 && minutes <= 9) {
+    if (seconds <= 9) {
+      // $("body").html("");
+      // empty html, display congrtulations modal
+      alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+      restartGame();
+    }
+
+    else {
+      // $("body").html("");
+      // empty html, display congrtulations modal
+      alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:${seconds}.\nStar rating: ${starCount}`);
+      restartGame();
+    }
+  }
+
+  else if (score === 8 && seconds <= 9) {
+    if (minutes <= 9) {
+      // $("body").html("");
+      // empty html, display congrtulations modal
+      alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+      restartGame();
+    }
+
+    else {
+      // $("body").html("");
+      // empty html, display congrtulations modal
+      alert(`Congratulations, you've won the game!\nTime (minutes and seconds): ${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+      restartGame();
+    }
+  }
+}
   function checkMatch(event) {
     // go to the actual DOM element that was clicked to get the icon's class
 
@@ -143,26 +186,9 @@ function shuffle(array) {
         } // if not, push to correctMatches array and increment score by 1
 
 
-        //The below if / else if statements are for formatting purposes when the user wins the game
-        if (score === 8 && minutes < 9) {
-          if (seconds < 9) {
-            alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
-          }
+        setTimeout(completeGame, 1000);
+        //call once user wins game
 
-          else {
-            alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:${seconds}.\nStar rating: ${starCount}`);
-          }
-        }
-
-        else if (score === 8 && seconds < 9) {
-          if (minutes < 9) {
-            alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
-          }
-
-          else {
-            alert(`Congratulations, you've won the game!\nTime (minutes and seconds): ${minutes}:0${seconds}.\nStar rating: ${starCount}`);
-          }
-        }
       } // if statement for match
 
       else {
@@ -261,9 +287,10 @@ function shuffle(array) {
     displayCard(cardArray);
   });
 
-  cardStyle.on("click", countMoves);
-
-  cardStyle.click(checkMatch);
+  cardStyle.click(function() {
+    checkMatch(event);
+    countMoves();
+  });
 
   restartButton.click(restartGame);
 });
