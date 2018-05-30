@@ -167,6 +167,8 @@ function completeGame() {
     //at 850 milliseconds, call the flipAnimation function
     console.log(compareMatches);
     if(compareMatches.length === 2) {
+      movesCount += 1;
+      // 1 move = user click of 2 cards (pair)
       if(compareMatches[0] === compareMatches[1]) {
         if($.inArray(compareMatches[0], correctMatches) !== -1 || $.inArray(compareMatches[1], correctMatches) !== -1) {
           console.log("Card has already been used");
@@ -217,7 +219,7 @@ function completeGame() {
 
   function countMoves() {
 
-    movesCount++;
+
 
     movesField.text(`0${movesCount}`);
     //for single digits, leave the initial '0'
