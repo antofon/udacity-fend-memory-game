@@ -5,14 +5,16 @@ $(document).ready(function() {
 
   const playButton = $("#play-button");
   const hiScoresButton = $("#hi-scores-button");
-  const cardStyle = $(".card-style");
+  const restartButton = $("#restart-button");
   const minutesField = $("#minutes-field");
   const secondsField = $("#seconds-field");
   const movesField = $("#moves-field");
   const faStar1 = $(".fa-star").last();
   const faStar2 = $(".fa-star:eq(1)");
   const faStar3 = $(".fa-star").first();
-  const restartButton = $("#restart-button");
+  const cardStyle = $(".card-style");
+
+  // Initial States
 
   let seconds = 1;
   let minutes = 0;
@@ -23,22 +25,22 @@ $(document).ready(function() {
   let correctMatches = [];
   let score = 0;
   let timer = 0;
-  // let i = 0;
 
+  // Created list that holds all of the cards
 
-// NOTE: REMOVE CONSOLE.LOG STATEMENT USED FOR DEBUGGING PURPOSES AFTER PROJECT COMPLETION
-
-  /*
- * Create a list that holds all of your cards
- */
   let cardArray = ['fa-angular', 'fa-css3-alt', 'fa-vuejs', 'fa-react', 'fa-sass', 'fa-js-square', 'fa-angular', 'fa-html5', 'fa-node-js', 'fa-react', 'fa-css3-alt', 'fa-node-js', 'fa-vuejs', 'fa-html5', 'fa-js-square', 'fa-sass'];
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+
+  // NOTE: REMOVE CONSOLE.LOG STATEMENTS USED FOR DEBUGGING PURPOSES AFTER PROJECT COMPLETION
+
+
+
+  /*
+   * Display the cards on the page
+   *   - shuffle the list of cards using the provided "shuffle" method below
+   *   - loop through each card and create its HTML
+   *   - add each card's HTML to the page
+   */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -53,7 +55,7 @@ function shuffle(array) {
     }
 
     return array;
-}
+} // shuffle()
 
 
 
@@ -70,7 +72,8 @@ function shuffle(array) {
 
  function restartGame() {
    clearInterval(timer);
-   // re-initialize vars to initial state logically
+
+   // Set vars back to initial state logically
    seconds = 1;
    minutes = 0;
    tmp = 0;
@@ -80,20 +83,20 @@ function shuffle(array) {
    correctMatches.length = 0;
    score = 0;
    timer = 0;
-   // minutes = 0;
-   // seconds = 0;
-   // movesCount = 0;
+
+   // Set initial state of HTML
 
    minutesField.text('00');
    secondsField.text('00');
    movesField.text('00');
-   // set initial state of HTML
+
+   // Call function to reshuffle cards and add the HTML to the screen
 
    displayCard(cardArray);
-   // call displayCard to reshuffle cards and add the HTML to the screen
+
+   // modify classes back to full stars, set count to 3
 
    switch (starCount) {
-
      case 1:
        faStar1.removeClass('far');
        faStar1.addClass('fas');
@@ -111,7 +114,7 @@ function shuffle(array) {
      default:
        starCount = 3;
        break;
-   } // modify classes back to full stars, set count to 3
+   }
  } // restartGame()
 
   function endGame() {
@@ -124,47 +127,51 @@ function shuffle(array) {
   } // flipAnimation()
 
 
-function completeGame() {
-  //The below if / else if statements are for formatting purposes when the user wins the game
-  if (score === 8 && minutes <= 9) {
-    if (seconds <= 9) {
-      // $("body").html("");
-      // empty html, display congrtulations modal
-      alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
-      restartGame();
+  function completeGame() {
+    //The below if / else if statements are for formatting purposes when the user wins the game
+    if (score === 8 && minutes <= 9) {
+      if (seconds <= 9) {
+        // $("body").html("");
+        // empty html, display congrtulations modal
+        alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+        restartGame();
+      }
+
+      else {
+        // $("body").html("");
+        // empty html, display congrtulations modal
+        alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:${seconds}.\nStar rating: ${starCount}`);
+        restartGame();
+      }
     }
 
-    else {
-      // $("body").html("");
-      // empty html, display congrtulations modal
-      alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:${seconds}.\nStar rating: ${starCount}`);
-      restartGame();
-    }
-  }
+    else if (score === 8 && seconds <= 9) {
+      if (minutes <= 9) {
+        // $("body").html("");
+        // empty html, display congrtulations modal
+        alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+        restartGame();
+      }
 
-  else if (score === 8 && seconds <= 9) {
-    if (minutes <= 9) {
-      // $("body").html("");
-      // empty html, display congrtulations modal
-      alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
-      restartGame();
+      else {
+        // $("body").html("");
+        // empty html, display congrtulations modal
+        alert(`Congratulations, you've won the game!\nTime (minutes and seconds): ${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+        restartGame();
+      }
     }
+  } // completeGame()
 
-    else {
-      // $("body").html("");
-      // empty html, display congrtulations modal
-      alert(`Congratulations, you've won the game!\nTime (minutes and seconds): ${minutes}:0${seconds}.\nStar rating: ${starCount}`);
-      restartGame();
-    }
-  }
-}
+
   function checkMatch(event) {
-    // go to the actual DOM element that was clicked to get the icon's class
+    //store class name of elements in an array to be compared for match/no match
 
     compareMatches.push(event.target.classList[4]);
-    //store class name of elements in an array to be compared for match/no match
-    setTimeout(flipAnimation, 850);
+
     //at 850 milliseconds, call the flipAnimation function
+
+    setTimeout(flipAnimation, 850);
+
     console.log(compareMatches);
     if(compareMatches.length === 2) {
       movesCount += 1;
@@ -177,7 +184,6 @@ function completeGame() {
 
         else {
           correctMatches.push(compareMatches[0], compareMatches[1]);
-
           console.log(`Card: ${compareMatches[0]}\nCard: ${compareMatches[1]}.\nCards match.`);
           console.log(`Correct matches: ${correctMatches}`);
           compareMatches.length = 0;
@@ -187,9 +193,9 @@ function completeGame() {
           console.log(`Score: ${score}`);
         } // if not, push to correctMatches array and increment score by 1
 
+        // call completeGame function once user wins game
 
         setTimeout(completeGame, 1000);
-        //call once user wins game
 
       } // if statement for match
 
@@ -204,9 +210,16 @@ function completeGame() {
 
 
   function displayCard(cardArray) {
+    // reshuffle cards before display to the screen
+
     shuffle(cardArray);
-    $('.icon').remove();
+
     //remove all icon elements in the beginning so they do not keep appending off of each other upon user's click
+
+    $('.icon').remove();
+
+    // add HTML for the card icon to the screen with a corresponding icon class
+
     for(let i = 0; i < cardArray.length; i++) {
       console.log(`Index: ${i}, Class: ${cardArray[i]}`);
       $('.card-style:eq('+i+')').append(`<span class="fab fa-5x align-icon icon" id="icon-${i}"></span>`);
@@ -219,10 +232,9 @@ function completeGame() {
 
   function countMoves() {
 
-
+    //for single digits, leave the initial '0'
 
     movesField.text(`0${movesCount}`);
-    //for single digits, leave the initial '0'
 
     if (movesCount > 9) {
       movesField.text(movesCount);
