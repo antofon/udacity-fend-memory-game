@@ -14,6 +14,7 @@ $(document).ready(function() {
   const faStar3 = $(".fa-star").first();
   const cardStyle = $(".card-style");
 
+
   // Initial States
 
   let seconds = 1;
@@ -133,15 +134,41 @@ function shuffle(array) {
       if (seconds <= 9) {
         // $("body").html("");
         // empty html, display congrtulations modal
-        alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
-        restartGame();
+        $('body').append(`<div class="card" style="width: 250px; height: 250px;">
+        <div class="card-body">
+          <p class="card-text">Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}</p>
+          <div class="btn btn-primary" id="play-again">Play again</div>
+          <div class="btn btn-primary" id="user-refresh">Refresh</div>
+        </div>
+      </div>`);
+      const playAgain = $('#play-again');
+      const userRefresh = $('#user-refresh');
+      playAgain.click(restartGame);
+      userRefresh.click(function(){
+        return location.reload();
+      });
+        // alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+        // restartGame();
       }
 
       else {
         // $("body").html("");
         // empty html, display congrtulations modal
-        alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:${seconds}.\nStar rating: ${starCount}`);
-        restartGame();
+        $('body').append(`<div class="card" style="width: 250px; height: 250px;">
+        <div class="card-body">
+          <p class="card-text">Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:${seconds}.\nStar rating: ${starCount}</p>
+          <div class="btn btn-primary" id="play-again">Play again</div>
+          <div class="btn btn-primary" id="user-refresh">Refresh</div>
+        </div>
+      </div>`);
+      const playAgain = $('#play-again');
+      const userRefresh = $('#user-refresh');
+      playAgain.click(restartGame);
+      userRefresh.click(function(){
+        return location.reload();
+      });
+        // alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:${seconds}.\nStar rating: ${starCount}`);
+        // restartGame();
       }
     }
 
@@ -149,15 +176,41 @@ function shuffle(array) {
       if (minutes <= 9) {
         // $("body").html("");
         // empty html, display congrtulations modal
-        alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
-        restartGame();
+        $('body').append(`<div class="card" style="width: 250px; height: 250px;">
+        <div class="card-body">
+          <p class="card-text">Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}</p>
+          <div class="btn btn-primary" id="play-again">Play again</div>
+          <div class="btn btn-primary" id="user-refresh">Refresh</div>
+        </div>
+      </div>`);
+      const playAgain = $('#play-again');
+      const userRefresh = $('#user-refresh');
+      playAgain.click(restartGame);
+      userRefresh.click(function(){
+        return location.reload();
+      });
+        // alert(`Congratulations, you've won the game!\nTime (minutes and seconds): 0${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+        // restartGame();
       }
 
       else {
         // $("body").html("");
         // empty html, display congrtulations modal
-        alert(`Congratulations, you've won the game!\nTime (minutes and seconds): ${minutes}:0${seconds}.\nStar rating: ${starCount}`);
-        restartGame();
+        $('body').append(`<div class="card" style="width: 250px; height: 250px;">
+        <div class="card-body">
+          <p class="card-text">Congratulations, you've won the game!\nTime (minutes and seconds): ${minutes}:0${seconds}.\nStar rating: ${starCount}</p>
+          <div class="btn btn-primary" id="play-again">Play again</div>
+          <div class="btn btn-primary" id="user-refresh">Refresh</div>
+        </div>
+      </div>`);
+      const playAgain = $('#play-again');
+      const userRefresh = $('#user-refresh');
+      playAgain.click(restartGame);
+      userRefresh.click(function(){
+        return location.reload();
+      });
+        // alert(`Congratulations, you've won the game!\nTime (minutes and seconds): ${minutes}:0${seconds}.\nStar rating: ${starCount}`);
+        // restartGame();
       }
     }
   } // completeGame()
@@ -307,4 +360,9 @@ function shuffle(array) {
   });
 
   restartButton.click(restartGame);
+
+
+
+
+
 });
