@@ -4,7 +4,7 @@ $(document).ready(function() {
   console.log("DOM content loaded.");
 
   const playButton = $("#play-button");
-  const hiScoresButton = $("#hi-scores-button");
+  // const hiScoresButton = $("#hi-scores-button");
   const restartButton = $("#restart-button");
   const minutesField = $("#minutes-field");
   const secondsField = $("#seconds-field");
@@ -13,7 +13,8 @@ $(document).ready(function() {
   const faStar2 = $(".fa-star:eq(1)");
   const faStar3 = $(".fa-star").first();
   const cardStyle = $(".card-style");
-
+  const absolute = $(".absolute");
+  const flipContainer = $(".flip-container");
 
   // Initial States
 
@@ -28,7 +29,6 @@ $(document).ready(function() {
   let timer = 0;
 
   // Created list that holds all of the cards
-
   let cardArray = ['fa-angular', 'fa-css3-alt', 'fa-vuejs', 'fa-react', 'fa-sass', 'fa-js-square', 'fa-angular', 'fa-html5', 'fa-node-js', 'fa-react', 'fa-css3-alt', 'fa-node-js', 'fa-vuejs', 'fa-html5', 'fa-js-square', 'fa-sass'];
 
 
@@ -121,6 +121,15 @@ function shuffle(array) {
   function endGame() {
     alert("Time's up, please press the 'Restart' button or refresh the page");
   } // endGame()
+
+  function reset () {
+    // console.log("Cards do not match.");
+    absolute.css("z-index", -1);
+    flipContainer.removeClass('animated flipInY');
+    absolute.addClass('animated flipOutY');
+    absolute.removeClass('animated flipOutY');
+    $(".front").html("Front");
+  }
 
   function flipAnimation() {
     // $('body').css({"background" : "purple", "transition": ".2s all ease-in-out"});
@@ -218,12 +227,13 @@ function shuffle(array) {
 
   function checkMatch(event) {
     //store class name of elements in an array to be compared for match/no match
-
+    // absolute.css("z-index", 1);
+    // flipContainer.addClass('animated flipInY');
     compareMatches.push(event.target.classList[4]);
 
     //at 850 milliseconds, call the flipAnimation function
 
-    setTimeout(flipAnimation, 850);
+    // setTimeout(flipAnimation, 850);
 
     console.log(compareMatches);
     if(compareMatches.length === 2) {
@@ -256,6 +266,10 @@ function shuffle(array) {
         console.log(`Score: ${score}`);
         console.log(`Card: ${compareMatches[0]}\nCard: ${compareMatches[1]}.\nCards do not match.`);
         compareMatches.length = 0;
+        // setTimeout(reset, 2000);
+        // absolute.removeClass('animated flipOutY');
+        // resetFlip();
+
         //delete contents instead of assigning reference to a new array (other references untouched) and causing potential memory leaks: https://www.jstips.co/en/javascript/two-ways-to-empty-an-array/
       } // else statement for no match
     } // user selects two cards to be compared for a match
@@ -278,7 +292,10 @@ function shuffle(array) {
       $('.card-style:eq('+i+')').append(`<span class="fab fa-5x align-icon icon" id="icon-${i}"></span>`);
       $('.icon:eq('+i+')').addClass(cardArray
       [i]);
+
     }
+
+
 
     console.log('\n');
   } // displayCard()
@@ -351,8 +368,10 @@ function shuffle(array) {
 
   playButton.click(function() {
     timer = setInterval(startTime, 1000);
-    displayCard(cardArray);
+
   });
+
+  displayCard(cardArray);
 
   cardStyle.click(function() {
     checkMatch(event);
@@ -360,9 +379,5 @@ function shuffle(array) {
   });
 
   restartButton.click(restartGame);
-
-
-
-
 
 });
