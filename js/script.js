@@ -289,7 +289,7 @@ function shuffle(array) {
 
     for(let i = 0; i < cardArray.length; i++) {
       console.log(`Index: ${i}, Class: ${cardArray[i]}`);
-      $('.card-style:eq('+i+')').append(`<span class="fab fa-5x align-icon icon" id="icon-${i}"></span>`);
+      $('.card-style:eq('+i+')').append(`<span class="fab fa-4x align-icon icon" id="icon-${i}"></span>`);
       $('.icon:eq('+i+')').addClass(cardArray
       [i]);
 
