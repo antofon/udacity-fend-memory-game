@@ -1,5 +1,6 @@
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#cb60b3+0,c146a1+50,a80077+51,db36a4+100;Pink+Gloss */
 
+$primary-color: #feffe8;
 
 .card {
   color: black;
@@ -112,4 +113,12 @@ div.front {
 .game-indicators {
   text-align: center;
   margin-top:30px;
+}
+
+body {
+  background-color: #250001;
+}
+
+.primary-color {
+  color: $primary-color;
 }
