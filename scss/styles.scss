@@ -112,7 +112,14 @@ div.front {
 
 .game-indicators {
   text-align: center;
-  margin-top:30px;
+  margin-top:50px;
+  font-size: 1.8em;
+}
+
+#game-title {
+  font-family: 'Atma', cursive;
+  font-size: 3em;
+  font-weight: 500;
 }
 
 body {
@@ -121,4 +128,8 @@ body {
 
 .primary-color {
   color: $primary-color;
+}
+
+.col-xs-12.col-md-9.card {
+
 }
