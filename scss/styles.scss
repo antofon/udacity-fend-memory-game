@@ -18,7 +18,7 @@ border-radius: 5px;
   .card-style {
 
     .icon{
-      height: 120px;
+      height: 100px;
       text-align: center;
       border-radius: 5px;
 padding: 18px;
@@ -141,7 +141,10 @@ div.front {
 #restart-button {
   margin-top:25px;
 }
-
+#game {
+  max-width:1100px;
+  margin:auto;
+}
 @media screen and (min-width: 576px) {
   #restart-button {
     margin-top:0px;
@@ -152,6 +155,8 @@ div.front {
   #restart-button {
     margin-top:25px;
   }
+
+
 }
 
 
