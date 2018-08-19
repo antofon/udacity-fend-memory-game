@@ -110,9 +110,9 @@ div.front {
 } */
 
 #game-buttons {
-  .col-xs-6 {
-    margin:auto;
-  }
+  // .col-xs-6 {
+  //   margin:auto;
+  // }
 
   font-size: 1.3rem;
 }
@@ -134,6 +134,25 @@ div.front {
   font-weight: 400;
 }
 
+// #restart-button {
+//   margin-top:25px;
+// }
+
+#restart-button {
+  margin-top:25px;
+}
+
+@media screen and (min-width: 576px) {
+  #restart-button {
+    margin-top:0px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  #restart-button {
+    margin-top:25px;
+  }
+}
 
 
 .primary-color {
