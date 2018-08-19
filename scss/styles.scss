@@ -145,6 +145,17 @@ div.front {
   max-width:1100px;
   margin:auto;
 }
+
+@media screen and (min-width: 500px) {
+
+  .game-indicators {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 33.333333%;
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+}
+
 @media screen and (min-width: 576px) {
   #restart-button {
     margin-top:0px;
@@ -156,9 +167,15 @@ div.front {
     margin-top:25px;
   }
 
+  .game-indicators {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
 
 }
-
 
 .primary-color {
   color: $primary-color;
