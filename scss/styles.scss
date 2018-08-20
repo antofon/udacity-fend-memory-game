@@ -132,6 +132,7 @@ div.front {
 #game-title {
   font-size: 3em;
   font-weight: 400;
+  margin-bottom: 0.8em;
 }
 
 // #restart-button {
@@ -139,7 +140,7 @@ div.front {
 // }
 
 #restart-button {
-  margin-top:25px;
+  margin-top:0px;
 }
 #game {
   max-width:1100px;
@@ -156,11 +157,6 @@ div.front {
   }
 }
 
-@media screen and (min-width: 576px) {
-  #restart-button {
-    margin-top:0px;
-  }
-}
 
 @media screen and (min-width: 768px) {
   #restart-button {
