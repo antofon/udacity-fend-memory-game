@@ -13,8 +13,10 @@ $(document).ready(function() {
   const faStar2 = $(".fa-star:eq(1)");
   const faStar3 = $(".fa-star").first();
   const cardStyle = $(".card-style");
-  const absolute = $(".absolute");
-  const flipContainer = $(".flip-container");
+  const animateCard = $(".animate-card");
+  const blankCard = $(".blank-card");
+  // const absolute = $(".absolute");
+  // const flipContainer = $(".flip-container");
 
   // Initial States
 
@@ -73,7 +75,7 @@ function shuffle(array) {
 
  function restartGame() {
    clearInterval(timer);
-
+   initialGameState();
    // Set vars back to initial state logically
    seconds = 1;
    minutes = 0;
@@ -122,14 +124,14 @@ function shuffle(array) {
     alert("Time's up, please press the 'Restart' button or refresh the page");
   } // endGame()
 
-  function reset () {
-    // console.log("Cards do not match.");
-    absolute.css("z-index", -1);
-    flipContainer.removeClass('animated flipInY');
-    absolute.addClass('animated flipOutY');
-    absolute.removeClass('animated flipOutY');
-    $(".front").html("Front");
-  }
+  // function reset () {
+  //   // console.log("Cards do not match.");
+  //   absolute.css("z-index", -1);
+  //   flipContainer.removeClass('animated flipInY');
+  //   absolute.addClass('animated flipOutY');
+  //   absolute.removeClass('animated flipOutY');
+  //   $(".front").html("Front");
+  // }
 
   function flipAnimation() {
     // $('body').css({"background" : "purple", "transition": ".2s all ease-in-out"});
@@ -386,7 +388,7 @@ function shuffle(array) {
 
   });
 
-  displayCard(cardArray);
+
 
   cardStyle.click(function() {
     checkMatch(event);
@@ -394,5 +396,25 @@ function shuffle(array) {
   });
 
   restartButton.click(restartGame);
+
+function flipCard () {
+  // actually shuffle and display cards upon flip, might want to leave it outside function to randomize right away
+  displayCard(cardArray);
+  animateCard.addClass("animated flipInY slow delay-4s");
+}
+
+function initialGameState() {
+  $(".icon").remove();
+  $("<span></span>").addClass('blank-card');
+$(".fab").css("display", "none");
+}
+
+initialGameState();
+
+blankCard.click(function() {
+  $(".fab").css("display", "block");
+  blankCard.remove();
+  flipCard();
+});
 
 });
