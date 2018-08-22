@@ -79,7 +79,7 @@ function shuffle(array) {
    minutes = 0;
    tmp = 0;
    movesCount = 0;
-   starCount = 3;
+   // starCount = 3;
    compareMatches.length = 0;
    correctMatches.length = 0;
    score = 0;
@@ -305,24 +305,39 @@ function shuffle(array) {
     //for single digits, leave the initial '0'
 
     movesField.text(`0${movesCount}`);
-
+    console.log(`Stars: ${starCount}`);
     if (movesCount > 9) {
       movesField.text(movesCount);
     }
 
     switch (movesCount) {
+      //two clicks = 1 try. Both cases are being ran twice because (24 to case 25 = decrement starCount, case 25 to 26 = clicked again to flip) starCount initially decrements twice in both cases. Current solution only decrements the count once in each case, even though case 25 goes through two passes to get to 26
       case 25:
+      if (starCount === 2) {
+        // do nothing, already decremented from 3 to 2 stars
+      }
+
+      else {
         faStar1.removeClass('fas');
         faStar1.addClass('far');
         //remove and add the FontAwesome classes for a Star
         starCount--;
-        console.log(`Stars: ${starCount}`);
-        break;
+      }
+
+      console.log(`Stars: ${starCount}`);
+      break;
 
       case 35:
+      if (starCount === 1) {
+        // do nothing, already decremented from 2 to 1 stars
+      }
+
+      else {
         faStar2.removeClass('fas');
         faStar2.addClass('far');
         starCount--;
+      }
+
         console.log(`Stars: ${starCount}`);
         break;
 
