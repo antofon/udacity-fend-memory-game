@@ -295,6 +295,7 @@ function shuffle(array) {
       $('.icon:eq('+i+')').addClass(cardArray
       [i]);
 
+
     }
 
 
@@ -392,6 +393,17 @@ function shuffle(array) {
 
   cardStyle.click(function() {
     checkMatch(event);
+    //prints class that user selects ultimately logging the class name clicked,
+    console.log(`The class is: ${$(this).children().attr('class').split(' ')[4]}`);
+    $(".fab").css("display", "block");
+    blankCard.remove();
+    $(this).addClass("animated flipInY slow delay-4s");
+
+    setTimeout(function() {
+      $(this).removeClass("animated flipInY slow delay-4s");
+      // $(this).addClass("animated flipOutY slow delay-4s");
+      
+    },2000)
     countMoves();
   });
 
@@ -399,8 +411,10 @@ function shuffle(array) {
 
 function flipCard () {
   // actually shuffle and display cards upon flip, might want to leave it outside function to randomize right away
-  displayCard(cardArray);
+$(".fab").css("display", "block");
+blankCard.remove();
   animateCard.addClass("animated flipInY slow delay-4s");
+
 }
 
 function initialGameState() {
@@ -412,9 +426,13 @@ $(".fab").css("display", "none");
 initialGameState();
 
 blankCard.click(function() {
-  $(".fab").css("display", "block");
-  blankCard.remove();
-  flipCard();
+  displayCard(cardArray);
+
+
+  // $(".fab").css("display", "none");
+  // $(this).remove();
+
+  // flipCard();
 });
 
 });
