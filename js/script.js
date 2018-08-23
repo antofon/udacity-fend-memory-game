@@ -394,16 +394,16 @@ function shuffle(array) {
   cardStyle.click(function() {
     checkMatch(event);
     //prints class that user selects ultimately logging the class name clicked,
-    console.log(`The class is: ${$(this).children().attr('class').split(' ')[4]}`);
-    $(".fab").css("display", "block");
-    blankCard.remove();
-    $(this).addClass("animated flipInY slow delay-4s");
 
-    setTimeout(function() {
-      $(this).removeClass("animated flipInY slow delay-4s");
-      // $(this).addClass("animated flipOutY slow delay-4s");
-      
-    },2000)
+    blankCard.remove();
+      $(".fab").css("display", "block");
+    $(this).addClass("animated flipInY slow delay-4s");
+console.log(`The class is: ${$(this).children().attr('class').split(' ')[4]}`);
+    // setTimeout(function() {
+    //   $(this).removeClass("animated flipInY slow delay-4s");
+    //   // $(this).addClass("animated flipOutY slow delay-4s");
+    //
+    // },2000)
     countMoves();
   });
 
@@ -427,6 +427,7 @@ initialGameState();
 
 blankCard.click(function() {
   displayCard(cardArray);
+  $(".fab").css("display", "none");
 
 
   // $(".fab").css("display", "none");
