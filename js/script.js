@@ -86,7 +86,7 @@ $(document).ready(function() {
   function restartGame() {
     if(timer === 0) {
       alert("No time on the clock yet, press \"Let's Play\" first!");
-    }
+    } //do not restart the game if the 'Let's Play has never been pressed
 
     else {
       clearInterval(timer);
@@ -238,7 +238,6 @@ $(document).ready(function() {
           console.log("Card has already been used");
           compareMatches.length = 0; // if the cards being compared are already a matched pair, empty array to check a new pair of cards
 
-
         } else {
           correctMatches.push(compareMatches[0], compareMatches[1]);
           console.log(`Card: ${compareMatches[0]}\nCard: ${compareMatches[1]}.\nCards match.`);
@@ -282,11 +281,7 @@ $(document).ready(function() {
 
       // $(".fab").css("display", "block");
       // animateCard.addClass("animated flipInY slow delay-4s");
-
     }
-
-
-
     console.log('\n');
   } // displayCard()
 
@@ -372,24 +367,18 @@ $(document).ready(function() {
       timer = setInterval(countTime, 1000);
       displayCard(cardArray);
       $(".fab").css("display", "block");
-      console.log(playButtonCount)
-
-    }
+    } // start game and timer if 'Let's Play' button has never been pressed
 
     else {
         alert("Already pressed \"Let's Play\", tick tick!");
     }
-
-
   }
-
-
 
   function flipCard() {
     //must come first to allow the $(this) statment that accesses the class to come into play
     if(timer === 0) {
       alert("Press \"Let's Play\" to begin game.")
-    }
+    } //do not flip any card if no time is on the board
 
     else {
       blankCard.remove();
@@ -405,7 +394,6 @@ $(document).ready(function() {
       // },2000)
       countMoves();
     }
-
   }
 
   function showCard() {
@@ -428,6 +416,4 @@ $(document).ready(function() {
 //   animateCard.addClass("animated flipInY slow delay-4s");
 //
 }*/
-
-
 });
