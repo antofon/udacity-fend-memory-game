@@ -27,6 +27,7 @@ $(document).ready(function() {
   let correctMatches = [];
   let score = 0;
   let timer = 0;
+  let playButtonCount = 0;
 
   // Created list that holds all of the cards
   let cardArray = [
@@ -57,6 +58,12 @@ $(document).ready(function() {
    *   - add each card's HTML to the page
    */
 
+   function initialGameState() {
+     $(".icon").remove();
+     $("<span></span>").addClass('blank-card');
+     $(".fab").css("display", "none");
+   }
+
   // Shuffle function from http://stackoverflow.com/a/2450976
   function shuffle(array) {
     var currentIndex = array.length,
@@ -77,50 +84,58 @@ $(document).ready(function() {
   /* set up the event listener for a card. If a card is clicked:  - display the card's symbol (put this functionality in another function that you call from this one)  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)  - if the list already has another card, check to see if the two cards match    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one) */
 
   function restartGame() {
-    clearInterval(timer);
-    initialGameState();
-    // Set vars back to initial state logically
-    seconds = 1;
-    minutes = 0;
-    tmp = 0;
-    movesCount = 0;
-    // starCount = 3;
-    compareMatches.length = 0;
-    correctMatches.length = 0;
-    score = 0;
-    timer = 0;
-
-    // Set initial state of HTML
-
-    minutesField.text('00');
-    secondsField.text('00');
-    movesField.text('00');
-
-    // Call function to reshuffle cards and add the HTML to the screen
-
-    displayCard(cardArray);
-
-    // modify classes back to full stars, set count to 3
-
-    switch (starCount) {
-      case 1:
-        faStar1.removeClass('far');
-        faStar1.addClass('fas');
-        faStar2.removeClass('far');
-        faStar2.addClass('fas');
-        starCount = 3;
-        break;
-
-      case 2:
-        faStar1.removeClass('far');
-        faStar1.addClass('fas');
-        starCount = 3;
-        break;
-
-      default:
-        starCount = 3;
-        break;
+    if(timer === 0) {
+      alert("No time on the clock yet, press \"Let's Play\" first!");
     }
+
+    else {
+      clearInterval(timer);
+      initialGameState();
+      // Set vars back to initial state logically
+      seconds = 1;
+      minutes = 0;
+      tmp = 0;
+      movesCount = 0;
+      // starCount = 3;
+      compareMatches.length = 0;
+      correctMatches.length = 0;
+      score = 0;
+      timer = 0;
+      playButtonCount = 0;
+
+      // Set initial state of HTML
+
+      minutesField.text('00');
+      secondsField.text('00');
+      movesField.text('00');
+
+      // Call function to reshuffle cards and add the HTML to the screen
+
+      displayCard(cardArray);
+
+      // modify classes back to full stars, set count to 3
+
+      switch (starCount) {
+        case 1:
+          faStar1.removeClass('far');
+          faStar1.addClass('fas');
+          faStar2.removeClass('far');
+          faStar2.addClass('fas');
+          starCount = 3;
+          break;
+
+        case 2:
+          faStar1.removeClass('far');
+          faStar1.addClass('fas');
+          starCount = 3;
+          break;
+
+        default:
+          starCount = 3;
+          break;
+      }
+    }
+
   } // restartGame()
 
   function endGame() {
@@ -351,41 +366,59 @@ $(document).ready(function() {
   } // startTime()
 
   function startTimer() {
-    timer = setInterval(countTime, 1000);
+
+    if (playButtonCount !== 1) {
+      playButtonCount++;
+      timer = setInterval(countTime, 1000);
+      displayCard(cardArray);
+      $(".fab").css("display", "block");
+      console.log(playButtonCount)
+
+    }
+
+    else {
+        alert("Already pressed \"Let's Play\", tick tick!");
+    }
+
+
   }
 
-  function initialGameState() {
-    $(".icon").remove();
-    $("<span></span>").addClass('blank-card');
-    $(".fab").css("display", "none");
-  }
 
-  function selectCard() {
+
+  function flipCard() {
     //must come first to allow the $(this) statment that accesses the class to come into play
-    blankCard.remove();
-    //prints class that user selects ultimately logging the class name clicked,
-    console.log(`The class is: ${$(this).children().attr('class').split(' ')[4]}`);
-    $(this).addClass("animated flipInY slow delay-4s");
-    checkMatch($(this).children().attr('class').split(' ')[4]);
+    if(timer === 0) {
+      alert("Press \"Let's Play\" to begin game.")
+    }
 
-    // setTimeout(function() {
-    //   $(this).removeClass("animated flipInY slow delay-4s");
-    //    $(this).addClass("animated flipOutY slow delay-4s");
-    //
-    // },2000)
-    countMoves();
+    else {
+      blankCard.remove();
+      //prints class that user selects ultimately logging the class name clicked,
+      console.log(`The class is: ${$(this).children().attr('class').split(' ')[4]}`);
+      $(this).addClass("animated flipInY slow delay-4s");
+      checkMatch($(this).children().attr('class').split(' ')[4]);
+
+      // setTimeout(function() {
+      //   $(this).removeClass("animated flipInY slow delay-4s");
+      //    $(this).addClass("animated flipOutY slow delay-4s");
+      //
+      // },2000)
+      countMoves();
+    }
+
   }
 
-  function selectBlankCard() {
-    displayCard(cardArray);
-$(".fab").css("display", "block");
+  function showCard() {
+    // displayCard(cardArray);
+    // $(".fab").css("display", "block");
+
   // $(".fab").css("display", "none");
   }
 
   playButton.click(startTimer);
   restartButton.click(restartGame);
-  cardStyle.click(selectCard);
-  blankCard.click(selectBlankCard);
+  cardStyle.click(flipCard);
+  // blankCard.click(showCard);
   initialGameState();
   /* function flipCard () {
 
