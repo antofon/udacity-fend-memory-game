@@ -228,6 +228,14 @@ $(document).ready(function() {
     }
   } // completeGame()
 
+  function rgb2hex(rgb) {
+    rgb = rgb.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+))?\)$/);
+    function hex(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2);
+    }
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+  }
+
   function checkMatch(event) {
     console.log(event);
     //store class name of elements in an array to be compared for match/no match
@@ -251,6 +259,13 @@ $(document).ready(function() {
           //delete contents instead of assigning reference to a new array (other references untouched) and causing potential memory leaks: https://www.jstips.co/en/javascript/two-ways-to-empty-an-array/
 
           score++;
+          var iconColor = $(".fab").css('background-color');
+          //RGB value
+          iconColor = rgb2hex(iconColor);
+          //convert to hex
+
+          $(".fab").css("box-shadow", `0px 0px 50px 5px ${iconColor}`);
+          //access first element with fab class and applies styling to all fab classes
           console.log(`Score: ${score}`);
         } // if not, push to correctMatches array and increment score by 1
 
@@ -379,6 +394,10 @@ $(document).ready(function() {
     }
   }
 
+
+
+/*RGB to HEX function reference from Erick Petrucelli and Zack Katz https://stackoverflow.com/questions/1740700/how-to-get-hex-color-value-rather-than-rgb-value*/
+
   function flipCard() {
     //must come first to allow the $(this) statment that accesses the class to come into play
     if(timer === 0) {
@@ -390,7 +409,14 @@ $(document).ready(function() {
       displayCard(cardArray);
       //prints class that user selects ultimately logging the class name clicked,
       console.log(`The class is: ${$(this).children().attr('class').split(' ')[4]}`);
+      // var iconColor = $(this).children().attr('class').split(' ')[4];
+      // console.log(`Icon color: ${iconColor}`);
+      // var iconColor = $(this).children().attr('class').split(' ')[4];
+      // console.log(iconColor.css("background-color"));
+      // console.log(`Icon color: ${iconColor}`);
+
       $(this).addClass("animated flipInY slow delay-4s");
+      // $(this).css("box-shadow", `0px 0px 50px 5px ${#D4649C}`);
       checkMatch($(this).children().attr('class').split(' ')[4]);
 
       // setTimeout(function() {
