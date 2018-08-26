@@ -59,9 +59,12 @@ $(document).ready(function() {
    */
 
    function initialGameState() {
-     $(".icon").remove();
-     $("<span></span>").addClass('blank-card');
-     $(".fab").css("display", "none");
+     // $("<span class='blank-card'></span>").html();
+     console.log(animateCard.children('.icon'));
+     animateCard.children('.icon').remove()
+     console.log(`Game at initial state: ${animateCard.children('.icon')}`);
+     animateCard.append("<span class='blank-card'></span>");
+     // $(".fab").css("display", "none");
    }
 
   // Shuffle function from http://stackoverflow.com/a/2450976
@@ -86,11 +89,12 @@ $(document).ready(function() {
   function restartGame() {
     if(timer === 0) {
       alert("No time on the clock yet, press \"Let's Play\" first!");
-    } //do not restart the game if the 'Let's Play has never been pressed
+    } //do not restart the game if the Let's Play has never been pressed
 
     else {
       clearInterval(timer);
       initialGameState();
+      console.log("Initial state");
       // Set vars back to initial state logically
       seconds = 1;
       minutes = 0;
@@ -109,9 +113,10 @@ $(document).ready(function() {
       secondsField.text('00');
       movesField.text('00');
 
-      // Call function to reshuffle cards and add the HTML to the screen
+      // Call function to reshuffle cards and display them to the screen
 
-      displayCard(cardArray);
+      shuffle(cardArray);
+      // displayCard(cardArray);
 
       // modify classes back to full stars, set count to 3
 
@@ -265,14 +270,12 @@ $(document).ready(function() {
   function displayCard(cardArray) {
     // reshuffle cards before display to the screen
 
-    shuffle(cardArray);
-
     //remove all icon elements in the beginning so they do not keep appending off of each other upon user's click
 
     $('.icon').remove();
 
     // add HTML for the card icon to the screen with a corresponding icon class
-
+    blankCard.remove();
     for (let i = 0; i < cardArray.length; i++) {
       // $(this).remove();
       console.log(`Index: ${i}, Class: ${cardArray[i]}`);
@@ -364,8 +367,10 @@ $(document).ready(function() {
 
     if (playButtonCount !== 1) {
       playButtonCount++;
+      shuffle(cardArray);
       timer = setInterval(countTime, 1000);
-      displayCard(cardArray);
+      // displayCard(cardArray);
+
       $(".fab").css("display", "block");
     } // start game and timer if 'Let's Play' button has never been pressed
 
@@ -382,6 +387,7 @@ $(document).ready(function() {
 
     else {
       blankCard.remove();
+      displayCard(cardArray);
       //prints class that user selects ultimately logging the class name clicked,
       console.log(`The class is: ${$(this).children().attr('class').split(' ')[4]}`);
       $(this).addClass("animated flipInY slow delay-4s");
@@ -407,7 +413,7 @@ $(document).ready(function() {
   restartButton.click(restartGame);
   cardStyle.click(flipCard);
   // blankCard.click(showCard);
-  initialGameState();
+  // initialGameState();
   /* function flipCard () {
 
   // actually shuffle and display cards upon flip, might want to leave it outside function to randomize right away
