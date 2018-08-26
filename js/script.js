@@ -259,12 +259,14 @@ $(document).ready(function() {
           //delete contents instead of assigning reference to a new array (other references untouched) and causing potential memory leaks: https://www.jstips.co/en/javascript/two-ways-to-empty-an-array/
 
           score++;
-          var iconColor = $(".fab").css('background-color');
-          //RGB value
-          iconColor = rgb2hex(iconColor);
-          //convert to hex
 
-          $(".fab").css("box-shadow", `0px 0px 50px 5px ${iconColor}`);
+          //highlight matched cards with glow css type of styling
+          // var iconColor = $(".fab"+compareMatches).css('background-color');
+          // //RGB value
+          // iconColor = rgb2hex(iconColor);
+          // //convert to hex
+          //
+          // $(".fab"+compareMatches).css("box-shadow", `0px 0px 50px 5px ${iconColor}`);
           //access first element with fab class and applies styling to all fab classes
           console.log(`Score: ${score}`);
         } // if not, push to correctMatches array and increment score by 1
